@@ -1,0 +1,13 @@
+{
+	"name": "pd/monolog-module",
+	"license": "MIT",
+	"require": {
+		"kdyby/monolog": "1.1.*",
+		"nette/di": "2.3.*"
+	},
+	"autoload": {
+		"psr-4": {
+			"Pd\\MonologModule\\": "src"
+		}
+	}
+}
