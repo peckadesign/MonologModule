@@ -22,6 +22,7 @@ monolog:
 
 
 pd.monolog:
+	# Povolené typy prosenterů pro zobrazení výstupu Monologu jako FlashMessage
 	allowedTypes:
 		- Pd\AdminModule\BasePresenter
 ```
