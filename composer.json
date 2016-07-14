@@ -2,9 +2,9 @@
 	"name": "pd/monolog-module",
 	"license": "MIT",
 	"require": {
-		"kdyby/monolog": "1.1.*",
-		"nette/di": "2.3.*",
-		"nette/application": "2.3.*"
+		"kdyby/monolog": "1.2.*",
+		"nette/di": "2.4.*",
+		"nette/application": "2.4.*"
 	},
 	"autoload": {
 		"psr-4": {
