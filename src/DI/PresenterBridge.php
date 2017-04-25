@@ -38,7 +38,7 @@ class PresenterBridge
 	}
 
 
-	public function onPresenter(Nette\Application\Application $application, Nette\Application\UI\Presenter $presenter)
+	public function onPresenter(Nette\Application\Application $application, Nette\Application\IPresenter $presenter)
 	{
 		$success = FALSE;
 		foreach ($this->allowedTypes as $allowedType) {
