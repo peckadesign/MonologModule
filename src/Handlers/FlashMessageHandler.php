@@ -57,7 +57,7 @@ class FlashMessageHandler extends Monolog\Handler\AbstractProcessingHandler
 
 	protected function write(array $record)
 	{
-		if ($record['level'] > Monolog\Logger::WARNING) {
+		if ($record['level'] > Monolog\Logger::NOTICE) {
 			$level = Pd\Controls\FlashMessageControl::STATUS_ERROR;
 		} else {
 			$level = Pd\Controls\FlashMessageControl::STATUS_INFO;
