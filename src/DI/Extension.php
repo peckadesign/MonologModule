@@ -29,6 +29,11 @@ class Extension extends Nette\DI\CompilerExtension
 
 		$application = $containerBuilder->getDefinition($containerBuilder->getByType(Nette\Application\Application::class));
 		$application->addSetup('?->onPresenter[] = ?', ['@self', [$presenterBridge, 'onPresenter']]);
+		
+		$application->addSetup('?->onError[] = function (\Nette\Application\Application $sender, \Throwable $e): void {' . "\n" .
+			"\t" . 'if ($e instanceof \Nette\Application\BadRequestException) return;' . "\n" .
+			"\t" . '$this->getService("monolog.logger")->error($e, ["exception" => $e]);' . "\n" .
+			'}', ['@self']);
 	}
 
 
