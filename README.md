@@ -1,7 +1,9 @@
 # MonologModule
 
  - Vytváří `DayFileHandler`, který loguje výstup Monologu do struktury `log/kanál/YYYY-MM/YYYY-MM-DD.log`
- - Umožňuje zobrazit v presenteru všechen výstup Monologu prostřednictvím FlashMessage. Vhodné např. pro administraci, kdy se zobrazí všechen výstup ze synchroních operací prováděných při požadavku obsluhy (e-maily, výstupy importů/exportů, atd.)
+ - Vytváří `BlueScreenHandler`, který ukládá výjimky z Tracy do `log/exception/YYYY-MM/`
+ - Napojuje logování z Tracy do Monologu
+
 
 ## Instalace
 
@@ -15,17 +17,38 @@ $ composer require pd/monolog-module
 # common.neon
 
 extensions:
-	pd.monolog: Pd\MonologModule\DI\Extension
-
-
-monolog:
-	name: projekt
-	handlers:
-		- Pd\MonologModule\Handlers\DayFileHandler("projekt", %logDir%)
+	pd.monolog: \Pd\MonologModule\DI\Extension
 
 
 pd.monolog:
-	# Povolené typy prosenterů pro zobrazení výstupu Monologu jako FlashMessage
-	allowedTypes:
-		- Pd\AdminModule\BasePresenter
+	name: projekt
+
+
+services:
+	myService:
+		arguments:
+			logger: @\Pd\MonologModule\ChannelLoggerFactory::create('myChannel')
+			
+	-
+		factory: \Monolog\Processor\WebProcessor
+
+	-
+		factory: \Pd\MonologModule\Handlers\DayFileHandler
+		arguments:
+			appName: myProjectName
+			logDir: %logDir%
+
+	-
+		factory: \Pd\MonologModule\Handlers\BlueScreenHandler
+		arguments:
+			logDir: %logDir%
+
+
+	pd.monolog.logger:
+		setup:
+			- pushProcessor(@\Monolog\Processor\WebProcessor)
+			- pushHandler(@\Pd\MonologModule\Handlers\DayFileHandler)
+			- pushHandler(@\Pd\CoreModule\LogModule\Handlers\NewRelicHandler)
+			- pushHandler(@\Pd\MonologModule\Handlers\BlueScreenHandler)
+
 ```
