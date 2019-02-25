@@ -1,45 +1,42 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace Pd\MonologModule\DI;
 
-use Kdyby;
-use Nette;
-use Pd;
-
-
-class Extension extends Nette\DI\CompilerExtension
+final class Extension extends \Nette\DI\CompilerExtension
 {
 
 	private $defaults = [
-		'allowedTypes' => [
-		],
+		'name' => '',
 	];
 
 
-	public function beforeCompile()
+	public function loadConfiguration()
 	{
+		parent::loadConfiguration();
+
 		$containerBuilder = $this->getContainerBuilder();
 
 		$config = $this->validateConfig($this->defaults);
 
-		$presenterBridge = $containerBuilder
-			->addDefinition($this->prefix('presenterBridge'))
-			->setClass(PresenterBridge::class, [$config['allowedTypes']])
+		$containerBuilder
+			->addDefinition($this->prefix('channelLoggerFactory'))
+			->setFactory(\Pd\MonologModule\ChannelLoggerFactory::class)
 		;
 
-		$application = $containerBuilder->getDefinition($containerBuilder->getByType(Nette\Application\Application::class));
-		$application->addSetup('?->onPresenter[] = ?', ['@self', [$presenterBridge, 'onPresenter']]);
+		$containerBuilder
+			->addDefinition($this->prefix('logger'))
+			->setType(\Monolog\Logger::class)
+			->setFactory(\Monolog\Logger::class, ['name' => $config['name']])
+		;
 	}
 
 
-	public function setCompiler(Nette\DI\Compiler $compiler, $name)
+	public function afterCompile(\Nette\PhpGenerator\ClassType $class)
 	{
-		$parent = parent::setCompiler($compiler, $name);
+		$initialize = $class->getMethod('initialize');
 
-		$monologExtension = new Kdyby\Monolog\DI\MonologExtension();
-		$compiler->addExtension('monolog', $monologExtension);
-
-		return $parent;
+		$initialize->addBody('$tracyLogger = new \Tracy\Bridges\Psr\PsrToTracyLoggerAdapter($this->getByType(\Psr\Log\LoggerInterface::class));');
+		$initialize->addBody('\Tracy\Debugger::setLogger($tracyLogger);');
 	}
 
 }
