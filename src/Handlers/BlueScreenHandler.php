@@ -43,7 +43,10 @@ final class BlueScreenHandler extends \Monolog\Handler\AbstractProcessingHandler
 			return;
 		}
 
-		$extensionLogger = new \Tracy\Logger($this->getLogDirectory($record['datetime']));
+		$logDirectory = $this->getLogDirectory($record['datetime']);
+		\Nette\Utils\FileSystem::createDir($logDirectory);
+
+		$extensionLogger = new \Tracy\Logger($logDirectory);
 
 		$exception = $record['context']['exception'];
 		$exceptionFile = $extensionLogger->getExceptionFile($exception);
