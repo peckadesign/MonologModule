@@ -24,9 +24,16 @@ final class Extension extends \Nette\DI\CompilerExtension
 		;
 
 		$containerBuilder
+			->addDefinition($this->prefix('contextChannelProcess'))
+			->setType(\Pd\MonologModule\Processors\ContextChannelProcessor::class)
+			->setFactory(\Pd\MonologModule\Processors\ContextChannelProcessor::class)
+		;
+
+		$containerBuilder
 			->addDefinition($this->prefix('logger'))
 			->setType(\Monolog\Logger::class)
 			->setFactory(\Monolog\Logger::class, ['name' => $config['name']])
+			->addSetup(new \Nette\DI\Statement('$service->pushProcessor(?)', ['@' . \Pd\MonologModule\Processors\ContextChannelProcessor::class]))
 		;
 	}
 

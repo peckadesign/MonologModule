@@ -57,7 +57,7 @@ final class DayFileHandler extends \Monolog\Handler\AbstractProcessingHandler
 			$record['filename'] = \strtolower($record['level_name']);
 		} else {
 			$this->setFormatter($this->priorityFormatter);
-			$record['filename'] = $record['channel'];
+			$record['filename'] = \strtolower($record['channel']);
 		}
 
 		return parent::handle($record);
