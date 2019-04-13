@@ -1,0 +1,2 @@
+extensions:
+	monolog: \Pd\MonologModule\DI\Extension

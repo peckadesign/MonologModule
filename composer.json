@@ -7,16 +7,22 @@
 		"nette/di": "2.4.*",
 		"nette/application": "2.4.*",
 		"nette/security": "2.4.*",
-		"tracy/tracy": "^2.6.0",
-		"kdyby/clock": "1.0.*"
+		"nette/utils": "2.5.*",
+		"tracy/tracy": "^2.6.0"
 	},
 	"require-dev": {
 		"pd/coding-standard": "1.17.*",
-		"phpstan/phpstan-strict-rules": "0.11.*"
+		"phpstan/phpstan-strict-rules": "0.11.*",
+		"nette/tester": "2.1.*"
 	},
 	"autoload": {
 		"psr-4": {
 			"Pd\\MonologModule\\": "src"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"PdTests\\MonologModule\\": "tests"
 		}
 	}
 }
