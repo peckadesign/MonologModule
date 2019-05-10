@@ -79,7 +79,7 @@ final class ChannelLogger implements \Psr\Log\LoggerInterface
 
 	public function log($level, $message, array $context = [])
 	{
-		$this->logger->log($message, $this->getContext($context));
+		$this->logger->log($level, $message, $this->getContext($context));
 	}
 
 }
