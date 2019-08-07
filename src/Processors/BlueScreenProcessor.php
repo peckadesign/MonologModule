@@ -51,12 +51,9 @@ final class BlueScreenProcessor
 		$extensionLogger = new \Tracy\Logger($logDirectory);
 
 		$exceptionFile = $extensionLogger->getExceptionFile($exception);
+		$record['context']['exceptionFile'] = $exceptionFile;
 
-		$isRender = $this->blueScreenRenderer->renderToFile($exception, $exceptionFile);
-
-		if ($isRender) {
-			$record['context']['exceptionFile'] = $exceptionFile;
-		}
+		$this->blueScreenRenderer->renderToFile($exception, $exceptionFile);
 
 		return $record;
 	}
