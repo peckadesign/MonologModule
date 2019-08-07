@@ -39,7 +39,7 @@ services:
 			logDir: %logDir%
 
 	-
-		factory: \Pd\MonologModule\Handlers\BlueScreenHandler
+		factory: \Pd\MonologModule\Processors\BlueScreenProcessor
 		arguments:
 			logDir: %logDir%
 
@@ -47,8 +47,8 @@ services:
 	pd.monolog.logger:
 		setup:
 			- pushProcessor(@\Monolog\Processor\WebProcessor)
+			- pushProcessor(@\Pd\MonologModule\Processors\BlueScreenProcessor)
 			- pushHandler(@\Pd\MonologModule\Handlers\DayFileHandler)
 			- pushHandler(@\Pd\CoreModule\LogModule\Handlers\NewRelicHandler)
-			- pushHandler(@\Pd\MonologModule\Handlers\BlueScreenHandler)
 
 ```
