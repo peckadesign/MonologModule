@@ -42,7 +42,7 @@ final class Extension extends \Nette\DI\CompilerExtension
 	{
 		$initialize = $class->getMethod('initialize');
 
-		$initialize->addBody('$tracyLogger = new \Tracy\Bridges\Psr\PsrToTracyLoggerAdapter($this->getByType(\Psr\Log\LoggerInterface::class));');
+		$initialize->addBody('$tracyLogger = new \Pd\MonologModule\Tracy\PsrToTracyLoggerAdapter($this->getByType(\Psr\Log\LoggerInterface::class));');
 		$initialize->addBody('\Tracy\Debugger::setLogger($tracyLogger);');
 	}
 
