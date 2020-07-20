@@ -5,12 +5,15 @@ namespace Pd\MonologModule\DI;
 final class Extension extends \Nette\DI\CompilerExtension
 {
 
-	private $defaults = [
+	/**
+	 * @var array<string, mixed>
+	 */
+	private array $defaults = [
 		'name' => '',
 	];
 
 
-	public function loadConfiguration()
+	public function loadConfiguration(): void
 	{
 		parent::loadConfiguration();
 
@@ -38,7 +41,7 @@ final class Extension extends \Nette\DI\CompilerExtension
 	}
 
 
-	public function afterCompile(\Nette\PhpGenerator\ClassType $class)
+	public function afterCompile(\Nette\PhpGenerator\ClassType $class): void
 	{
 		$initialize = $class->getMethod('initialize');
 

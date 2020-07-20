@@ -5,10 +5,7 @@ namespace Pd\MonologModule;
 final class ChannelLoggerFactory
 {
 
-	/**
-	 * @var \Psr\Log\LoggerInterface
-	 */
-	private $logger;
+	private \Psr\Log\LoggerInterface $logger;
 
 
 	public function __construct(\Psr\Log\LoggerInterface $logger)

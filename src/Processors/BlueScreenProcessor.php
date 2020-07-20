@@ -5,15 +5,9 @@ namespace Pd\MonologModule\Processors;
 final class BlueScreenProcessor
 {
 
-	/**
-	 * @var \Tracy\BlueScreen
-	 */
-	private $blueScreenRenderer;
+	private \Tracy\BlueScreen $blueScreenRenderer;
 
-	/**
-	 * @var string
-	 */
-	private $logDirectory;
+	private string $logDirectory;
 
 
 	public function __construct(string $logDir)
@@ -35,6 +29,10 @@ final class BlueScreenProcessor
 	}
 
 
+	/**
+	 * @param array<mixed> $record
+	 * @return array<mixed>
+	 */
 	public function __invoke(array $record): array
 	{
 		$exception = $record['context']['exception'] ?? NULL;

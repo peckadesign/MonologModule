@@ -11,33 +11,18 @@ namespace Pd\MonologModule\Handlers;
 final class DayFileHandler extends \Monolog\Handler\AbstractProcessingHandler
 {
 
-	/**
-	 * @var string
-	 */
-	private $logDir;
+	private string $logDir;
 
-	/**
-	 * @var \Monolog\Formatter\LineFormatter
-	 */
-	private $defaultFormatter;
+	private \Monolog\Formatter\LineFormatter $defaultFormatter;
 
-	/**
-	 * @var \Monolog\Formatter\LineFormatter
-	 */
-	private $priorityFormatter;
+	private \Monolog\Formatter\LineFormatter $priorityFormatter;
 
-	/**
-	 * @var string
-	 */
-	private $appName;
+	private string $appName;
 
-	/**
-	 * @var bool
-	 */
-	private $expandNewlines = FALSE;
+	private bool $expandNewlines;
 
 
-	public function __construct(string $appName, string $logDir, $expandNewlines = FALSE)
+	public function __construct(string $appName, string $logDir, bool $expandNewlines = FALSE)
 	{
 		parent::__construct();
 
@@ -50,6 +35,9 @@ final class DayFileHandler extends \Monolog\Handler\AbstractProcessingHandler
 	}
 
 
+	/**
+	 * @param array<mixed> $record
+	 */
 	public function handle(array $record): bool
 	{
 		if ($record['channel'] === $this->appName) {
@@ -64,7 +52,7 @@ final class DayFileHandler extends \Monolog\Handler\AbstractProcessingHandler
 	}
 
 
-	private function getFileName(\DateTimeInterface $dateTime, string $fileName)
+	private function getFileName(\DateTimeInterface $dateTime, string $fileName): string
 	{
 		$pathParts = [
 			$fileName,
@@ -76,6 +64,9 @@ final class DayFileHandler extends \Monolog\Handler\AbstractProcessingHandler
 	}
 
 
+	/**
+	 * @param array<mixed> $record
+	 */
 	protected function write(array $record): void
 	{
 		$filePath = $this->logDir . $this->getFileName($record['datetime'], $record['filename']);
@@ -84,7 +75,7 @@ final class DayFileHandler extends \Monolog\Handler\AbstractProcessingHandler
 
 		if ($this->expandNewlines) {
 			$entry = '';
-			foreach (\preg_split('{[\r\n]+}', (string) $record['message']) as $line) {
+			foreach ((array) \preg_split('{[\r\n]+}', (string) $record['message']) as $line) {
 				$entry .= \trim($this->getFormatter()->format(['message' => $line] + $record)) . \PHP_EOL;
 			}
 		} else {

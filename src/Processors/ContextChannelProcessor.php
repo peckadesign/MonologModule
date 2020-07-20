@@ -5,7 +5,11 @@ namespace Pd\MonologModule\Processors;
 final class ContextChannelProcessor
 {
 
-	public function __invoke($record)
+	/**
+	 * @param array<mixed> $record
+	 * @return array<mixed>
+	 */
+	public function __invoke(array $record): array
 	{
 		if (isset($record['context']['channel'])) {
 			$record['channel'] = $record['context']['channel'];
