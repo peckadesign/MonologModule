@@ -5,12 +5,15 @@ namespace Pd\MonologModule\DI;
 final class Extension extends \Nette\DI\CompilerExtension
 {
 
-	private $defaults = [
+	/**
+	 * @var array<string, mixed>
+	 */
+	private array $defaults = [
 		'name' => '',
 	];
 
 
-	public function loadConfiguration()
+	public function loadConfiguration(): void
 	{
 		parent::loadConfiguration();
 
@@ -38,11 +41,11 @@ final class Extension extends \Nette\DI\CompilerExtension
 	}
 
 
-	public function afterCompile(\Nette\PhpGenerator\ClassType $class)
+	public function afterCompile(\Nette\PhpGenerator\ClassType $class): void
 	{
 		$initialize = $class->getMethod('initialize');
 
-		$initialize->addBody('$tracyLogger = new \Pd\MonologModule\Tracy\PsrToTracyLoggerAdapter($this->getByType(\Psr\Log\LoggerInterface::class));');
+		$initialize->addBody('$tracyLogger = new \Tracy\Bridges\Psr\PsrToTracyLoggerAdapter($this->getByType(\Psr\Log\LoggerInterface::class));');
 		$initialize->addBody('\Tracy\Debugger::setLogger($tracyLogger);');
 	}
 
