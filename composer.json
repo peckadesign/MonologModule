@@ -11,7 +11,7 @@
 		"tracy/tracy": "^2.6.0"
 	},
 	"require-dev": {
-		"pd/coding-standard": "1.25.*",
+		"pd/coding-standard": "1.26.0.*",
 		"phpstan/phpstan-strict-rules": "0.12.*",
 		"nette/tester": "2.3.*",
 		"nette/bootstrap": "3.0.*"
