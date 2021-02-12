@@ -29,4 +29,4 @@ jobs:
 
       - name: PHPStan
         run: |
-          vendor/bin/phpstan analyse src/ --level 8 --no-progress
+          vendor/bin/phpstan analyse src/ --level 8 --no-progress --error-format github

@@ -12,7 +12,8 @@
 	},
 	"require-dev": {
 		"pd/coding-standard": "1.26.0.*",
-		"phpstan/phpstan-strict-rules": "0.12.*",
+		"phpstan/phpstan": "0.12.75",
+		"phpstan/phpstan-strict-rules": "0.12.9",
 		"nette/tester": "2.3.*",
 		"nette/bootstrap": "3.0.*"
 	},
