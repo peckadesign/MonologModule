@@ -3,7 +3,7 @@
 	"description": "Integrace Monologu do projektů PeckaDesign",
 	"license": "MIT",
 	"require": {
-		"php": "7.4.* || 8.0.*",
+		"php": "7.4.* || 8.*",
 		"monolog/monolog": "2.1.*",
 		"nette/di": "2.4.* || ^3.0.0",
 		"nette/application": "2.4.* || ^3.0.0",
@@ -12,8 +12,8 @@
 	},
 	"require-dev": {
 		"pd/coding-standard": "1.27.*",
-		"phpstan/phpstan": "0.12.75",
-		"phpstan/phpstan-strict-rules": "0.12.9",
+		"phpstan/phpstan": "1.2.0",
+		"phpstan/phpstan-strict-rules": "1.1.0",
 		"nette/tester": "2.3.*",
 		"nette/bootstrap": "3.0.*"
 	},
