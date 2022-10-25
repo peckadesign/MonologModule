@@ -26,5 +26,10 @@
 		"psr-4": {
 			"PdTests\\MonologModule\\": "tests"
 		}
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
 	}
 }

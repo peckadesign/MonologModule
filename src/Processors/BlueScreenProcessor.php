@@ -2,7 +2,7 @@
 
 namespace Pd\MonologModule\Processors;
 
-final class BlueScreenProcessor
+final class BlueScreenProcessor implements \Monolog\Processor\ProcessorInterface
 {
 
 	private \Tracy\BlueScreen $blueScreenRenderer;

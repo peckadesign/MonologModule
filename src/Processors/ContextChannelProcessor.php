@@ -2,7 +2,7 @@
 
 namespace Pd\MonologModule\Processors;
 
-final class ContextChannelProcessor
+final class ContextChannelProcessor implements \Monolog\Processor\ProcessorInterface
 {
 
 	/**
